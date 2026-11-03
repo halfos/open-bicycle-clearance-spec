@@ -1,0 +1,46 @@
+obcs_version: 0.1.0
+frame:
+  brand: FICTIONAL CYCLE
+  model: Example Gravel
+  year: 2026
+  size: M
+reference_conditions:
+  description: Illustrative reference geometry; rigid fork and rear axle at centre
+  rim_internal_width_mm: 25
+level_a:
+  matrices:
+    without_fender:
+      584: {40: 45, 45: 43, 50: 40, 55: 38, 60: 35}
+      622: {40: 45, 45: 43, 50: 40, 55: 38, 60: 35}
+    with_fender:
+      584: {40: 40, 45: 38, 50: 35, 55: 33, 60: x}
+      622: {40: 40, 45: 38, 50: 35, 55: 33, 60: x}
+  fender_mounts: [dropout_f, dropout_r, crown_hole, mid_fork, ss_bridge, cs_bridge]
+  chainrings:
+    one_by_max_teeth: {"43.5": 42, "45": 44, "47.5": 46, "50": 48, "52": 48, "55": 50}
+    two_by_combinations: [[46, 30]]
+    fd_mount: braze-on
+    fd_ring_range: [30, 46]
+    max_tyre_with_fd: 50
+level_b:
+  profiles:
+    584:
+      z_free_left: [[292, 70], [340, 70], [390, 70], [420, 70]]
+      z_free_right: [[292, 70], [340, 70], [390, 70], [420, 70]]
+      max_radius: 450
+      bb_profile_drive: [[35, 38], [60, 38], [110, 38], [120, 38]]
+    622:
+      z_free_left: [[311, 70], [350, 70], [400, 70], [430, 70]]
+      z_free_right: [[311, 70], [350, 70], [400, 70], [430, 70]]
+      max_radius: 460
+      bb_profile_drive: [[35, 38], [60, 38], [110, 38], [120, 38]]
+provenance:
+  source: fictional illustrative data
+  method: reference geometry
+  instruments: []
+  resolution: illustrative
+  date: "2026-11-03"
+  contributor: OBCS example
+  repeats: 1
+  uncertainty: illustrative only
+confidence: declared

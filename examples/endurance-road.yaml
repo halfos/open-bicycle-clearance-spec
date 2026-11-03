@@ -1,0 +1,38 @@
+obcs_version: 0.1.0
+frame:
+  brand: FICTIONAL CYCLE
+  model: Example Endurance
+  year: 2026
+  size: M
+reference_conditions:
+  description: Illustrative reference geometry; rigid fork and rear axle at centre
+  rim_internal_width_mm: 19
+level_a:
+  matrices:
+    without_fender:
+      622: {35: 48, 40: 45, 45: 42, 50: 40}
+    with_fender:
+      622: {35: 43, 40: 40, 45: x, 50: x}
+  fender_mounts: [dropout_f, dropout_r, crown_hole, ss_bridge, cs_bridge]
+  chainrings:
+    two_by_combinations: [[50, 34]]
+    fd_mount: braze-on
+    fd_ring_range: [34, 50]
+    max_tyre_with_fd: 40
+level_b:
+  profiles:
+    622:
+      z_free_left: [[311, 50], [350, 50], [400, 50], [420, 50]]
+      z_free_right: [[311, 50], [350, 50], [400, 50], [420, 50]]
+      max_radius: 450
+      bb_profile_drive: [[35, 38], [60, 38], [110, 38], [120, 38]]
+provenance:
+  source: fictional illustrative data
+  method: reference geometry
+  instruments: []
+  resolution: illustrative
+  date: "2026-11-03"
+  contributor: OBCS example
+  repeats: 1
+  uncertainty: illustrative only
+confidence: declared

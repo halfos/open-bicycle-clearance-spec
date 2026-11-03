@@ -1,0 +1,59 @@
+name: Submit a clearance measurement
+description: Submit a frame clearance measurement for review
+title: "[Measurement] "
+body:
+  - type: markdown
+    attributes:
+      value: "Please submit measured values only. Remove photo location metadata."
+  - type: input
+    id: brand
+    attributes:
+      label: Frame brand
+    validations:
+      required: true
+  - type: input
+    id: model
+    attributes:
+      label: Frame model, year, and size
+    validations:
+      required: true
+  - type: input
+    id: bsd
+    attributes:
+      label: Exact nominal BSD (mm)
+      description: Use the ETRTO/ISO 5775 bead-seat diameter; do not round.
+    validations:
+      required: true
+  - type: textarea
+    id: cells
+    attributes:
+      label: Matrix cells
+      description: "List BSD, measured width (mm), with/without fender, and gap (mm), x, or untested."
+    validations:
+      required: true
+  - type: input
+    id: fender-mounts
+    attributes:
+      label: Fender mounts
+      description: "dropout_f, dropout_r, crown_hole, mid_fork, ss_bridge, cs_bridge, other"
+  - type: textarea
+    id: chainrings
+    attributes:
+      label: Chainring and front-derailleur information
+  - type: input
+    id: method
+    attributes:
+      label: Measurement method
+    validations:
+      required: true
+  - type: input
+    id: instruments
+    attributes:
+      label: Instruments and resolution
+    validations:
+      required: true
+  - type: textarea
+    id: photos
+    attributes:
+      label: Photo links or attachments
+      description: Include a scale and close-ups of binding points; remove EXIF GPS.

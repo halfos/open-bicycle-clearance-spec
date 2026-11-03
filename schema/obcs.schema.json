@@ -1,0 +1,146 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-bicycle-clearance-spec.example/schema/obcs.schema.json",
+  "title": "Open Bicycle Clearance Specification record",
+  "type": "object",
+  "required": ["obcs_version", "frame", "reference_conditions", "level_a", "provenance", "confidence"],
+  "properties": {
+    "obcs_version": {"const": "0.1.0"},
+    "frame": {
+      "type": "object",
+      "required": ["brand", "model", "year", "size"],
+      "properties": {
+        "brand": {"type": "string", "minLength": 1},
+        "model": {"type": "string", "minLength": 1},
+        "year": {"type": ["integer", "string"]},
+        "size": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "reference_conditions": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {"type": "string"},
+        "rim_internal_width_mm": {"type": "number", "exclusiveMinimum": 0},
+        "axle_position": {"type": "string"},
+        "suspension_position": {"type": "string"},
+        "notes": {"type": "string"}
+      },
+      "additionalProperties": true
+    },
+    "level_a": {
+      "type": "object",
+      "required": ["matrices", "fender_mounts"],
+      "properties": {
+        "matrices": {
+          "type": "object",
+          "required": ["without_fender", "with_fender"],
+          "properties": {
+            "without_fender": {"$ref": "#/$defs/matrix"},
+            "with_fender": {"$ref": "#/$defs/matrix"}
+          },
+          "additionalProperties": false
+        },
+        "fender_mounts": {
+          "type": "array",
+          "items": {"enum": ["dropout_f", "dropout_r", "crown_hole", "mid_fork", "ss_bridge", "cs_bridge", "other"]},
+          "uniqueItems": true
+        },
+        "chainrings": {"$ref": "#/$defs/chainrings"}
+      },
+      "additionalProperties": true
+    },
+    "level_b": {
+      "type": "object",
+      "properties": {
+        "profiles": {
+          "type": "object",
+          "patternProperties": {
+            "^[0-9]+$": {
+              "type": "object",
+              "required": ["z_free_left", "z_free_right", "max_radius"],
+              "properties": {
+                "z_free_left": {"$ref": "#/$defs/polyline"},
+                "z_free_right": {"$ref": "#/$defs/polyline"},
+                "max_radius": {"type": "number", "exclusiveMinimum": 0},
+                "bb_profile_drive": {"$ref": "#/$defs/polyline"}
+              },
+              "additionalProperties": true
+            }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "method", "instruments", "resolution", "date", "contributor", "repeats", "uncertainty"],
+      "properties": {
+        "source": {"type": "string"},
+        "method": {"type": "string"},
+        "instruments": {"type": "array", "items": {"type": "string"}},
+        "resolution": {"type": ["number", "string"]},
+        "date": {"type": "string"},
+        "contributor": {"type": "string"},
+        "repeats": {"type": "integer", "minimum": 1},
+        "uncertainty": {"type": ["number", "string"]}
+      },
+      "additionalProperties": true
+    },
+    "confidence": {"enum": ["declared", "measured", "verified", "manufacturer-confirmed"]}
+  },
+  "$defs": {
+    "cell": {
+      "oneOf": [
+        {"type": "integer", "minimum": 0},
+        {"const": "x"},
+        {"type": "null"},
+        {
+          "type": "object",
+          "required": ["gap"],
+          "properties": {
+            "gap": {"type": ["integer", "null"], "minimum": 0},
+            "lateral": {"type": ["number", "null"]},
+            "radial": {"type": ["number", "null"]},
+            "binding_point": {"type": ["object", "string", "null"]}
+          },
+          "additionalProperties": true
+        }
+      ]
+    },
+    "matrix": {
+      "type": "object",
+      "patternProperties": {
+        "^[0-9]+$": {
+          "type": "object",
+          "patternProperties": {"^[0-9]+$": {"$ref": "#/$defs/cell"}},
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "polyline": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "array",
+        "prefixItems": [{"type": "number", "minimum": 0}, {"type": "number", "minimum": 0}],
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "chainrings": {
+      "type": "object",
+      "properties": {
+        "one_by_max_teeth": {"type": "object"},
+        "two_by_combinations": {"type": "array", "items": {"type": "array", "items": {"type": "integer"}}},
+        "fd_mount": {"type": "string"},
+        "fd_ring_range": {"type": "array", "prefixItems": [{"type": "integer"}, {"type": "integer"}], "minItems": 2, "maxItems": 2},
+        "max_tyre_with_fd": {"type": ["number", "null"]}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
